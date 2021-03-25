@@ -64,7 +64,7 @@ function prepEntity(entity) {
         entity["colour"] = "#FF0000";
     }
     if (!entity["radius"]) {
-        entity["radius"] = 50;
+        entity["radius"] = 20;
     }
     return entity;
 }
@@ -72,7 +72,7 @@ function prepEntity(entity) {
 function clearFrame() {
     with(context) {
 	moveTo(0,0);
-	fillStyle = "#000";
+	fillStyle = "#fdf5e8";
 	fillRect(0,0,W,H);
     }
 
@@ -231,6 +231,20 @@ mouse = (function() {
     return self;
 })();
 
+
+//https://stackoverflow.com/a/1484514/13544994
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+
+
+
 // Add the application specific mouse listeners!
 //XXX: TODO Make these prettier!
 mouse.mousedowners.push(function(x,y,clicked,e) {
@@ -242,7 +256,8 @@ mouse.mouseuppers.push(function(x,y,clicked,e) {
 });
 
 mouse.mousedraggers.push(function(x,y,clicked,e) {
-    addEntityWithoutName({'x':x,'y':y,'colour':'green',
+    let color = getRandomColor()
+    addEntityWithoutName({'x':x,'y':y,'colour':color,
                           'radius':10});
 });
 
@@ -258,13 +273,13 @@ function wsSetup() {
     socket.onopen = function() {
         //XXX: TODO What are you going to do here?
         var path='/world';
-
         fetch(path).then(response => response.json()).then(function(body){
             for(let item in body){
                 world[item] = body[item];
                 drawNextFrame();
             };
-        });
+         });
+
     };
     socket.onerror = function(msg) {
         debug("WebSocket Error:" + msg.data);

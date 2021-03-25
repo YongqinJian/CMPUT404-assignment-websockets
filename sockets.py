@@ -85,9 +85,8 @@ class Client:
 
 def set_listener( entity, data ):
     ''' do something with the update ! '''
-    dictionary = {entity:data}
-    json_file = json.dumps(dictionary)
-    send_all(json_file)
+
+    send_all(json.dumps({entity:data}))
 
 
 
@@ -132,7 +131,7 @@ def subscribe_socket(ws):
             msg=client.get()
             ws.send(msg)
     except Exception as e:
-        print("WS Error %s e")
+        print("WS Error: ",e)
 
     finally:
         clients.remove(client)
@@ -157,7 +156,7 @@ def update(entity):
     '''update the entities via this interface'''
     json_data = flask_post_json()
     myWorld.set(entity,json_data)
-    return json.dumps(json_data)
+    return json.dumps(myWorld.get(entity))
 
 @app.route("/world", methods=['POST','GET'])    
 def world():

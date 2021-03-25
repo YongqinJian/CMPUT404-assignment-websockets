@@ -55,7 +55,13 @@ POSSIBILITY OF SUCH DAMAGE.
 
 Contributors
 ============
-
+* Yongqin Jian
 * Mark Galloway
 * Abram Hindle
 * Cole Mackenzie
+
+external Resource
+============
+# Ref: https://github.com/uofa-cmput404/cmput404-slides/tree/master/examples/WebSocketsExamples
+# https://stackoverflow.com/a/1484514/13544994
+# https://github.com/YongqinJian/CMPUT404-assignment-ajax
