@@ -125,7 +125,7 @@ def subscribe_socket(ws):
     # Ref: https://github.com/uofa-cmput404/cmput404-slides/tree/master/examples/WebSocketsExamples
     client = Client()
     clients.append(client)
-    g = gevent.spawn(read_ws,ws,client)
+    event = gevent.spawn(read_ws,ws,client)
     try:
         while True:
             msg=client.get()
@@ -135,7 +135,7 @@ def subscribe_socket(ws):
 
     finally:
         clients.remove(client)
-        gevent.kill(g)
+        gevent.kill(event)
 
 
 
